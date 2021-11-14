@@ -8,7 +8,7 @@ import random
 
 # SETTINGS
 
-generate_images = False
+generate_images = True
 generate_data_file = True
 
 shuffle_lines_in_file = True
@@ -24,7 +24,7 @@ filename = "train.data"
 
 fp = open(filename, "w")
 
-for i in range(1, 10):
+for i in range(0, 10):
     num = 1
     if not os.path.exists("data/" + str(i)):
         os.makedirs("data/" + str(i))
@@ -32,7 +32,10 @@ for i in range(1, 10):
         img = Image.new('RGB', (28, 28))
         draw = ImageDraw.Draw(img)
         loadedFont = ImageFont.truetype("fonts/" + font, random.randint(16, 22))
-        draw.text((8,0), str(i), (255, 255, 255), font=loadedFont)
+        if(i > 0):
+            draw.text((8,0), str(i), (255, 255, 255), font=loadedFont)
+        else:
+            draw.text((random.randint(0, 24), random.randint(-10, 24)), ".", (255, 255, 255), font=loadedFont)
         if generate_data_file:
             fp.write(str(i) + "#")
             pixels = img.load()
